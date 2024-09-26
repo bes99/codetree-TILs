@@ -14,9 +14,6 @@ queue<int> q;
 // board 정보 pair(사람 idx, 남은 턴) ok
 // 사람 벡터 (사람 idx, 사람 dir, row, col) ok
 // 사람, 방향별 우선순위 저장 벡터 (사람 idx, (방향,우선순위))
-// 이동 시 우선순위에 따른 이동 방향 반환 로직 함수.
-// 여러 개 이동 가능할 때 우선순위 높은 것만 적용하여 이동.
-// 사람이 겹치는 경우는 빈 칸에 동시에 들어가는 경우만 있음. 이때 사람 인덱스가 작은 것 외 삭제시킨다.
 
 // 사람번호, 현재방향 줬을 때 우선순위 반환
 int find_pre(int idx, int dir, int lev){
@@ -60,9 +57,15 @@ void move(int idx, int d, int row, int col){
             else{
                 arr[r][c].first = idx;
             }
-            arr[r][c].second = k;
-            vec[idx].second.first=r;
-            vec[idx].second.second=c;
+            arr[r][c].second = k+1;
+            for(int z=0;z<vec.size();z++){
+                int target = vec[z].first.first;
+                if(idx==target){
+                    vec[z].first.second = dir;
+                    vec[z].second.first=r;
+                    vec[z].second.second=c;       
+                }
+            }
             return;
         }
     }
@@ -74,9 +77,15 @@ void move(int idx, int d, int row, int col){
         if(r<0 || r>=n || c<0 || c>=n) continue;
         if(cpy[r][c].first==idx){
             // 업데이트 로직
-            arr[r][c].second = k;
-            vec[idx].second.first=r;
-            vec[idx].second.second=c;
+            arr[r][c].second = k+1;
+            for(int z=0;z<vec.size();z++){
+                int target = vec[z].first.first;
+                if(idx==target){
+                    vec[z].first.second = dir;
+                    vec[z].second.first=r;
+                    vec[z].second.second=c;       
+                }
+            }
             return;
         }
     }
@@ -115,8 +124,31 @@ void delete_person(){
         q.pop();
     }
 }
+void print(){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cout<<arr[i][j].first<<" ";
+        }
+        cout<<"\n";
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cout<<arr[i][j].second<<" ";
+        }
+        cout<<"\n";
+    }
+}
+void pp(){
+    for(int i=0;i<vec.size();i++){
+        int idx = vec[i].first.first;
+        int d = vec[i].first.second;
+        int r = vec[i].second.first;
+        int c = vec[i].second.second;
+        cout<<idx<<" "<<d<<" "<<r<<" "<<c<<"\n";
+    }
+}
 int simulate(){
-    for(int t=1;t<1000;t++){
+    for(int t=1;t<5;t++){
         copy();
         for(int i=0;i<vec.size();i++){
             int idx = vec[i].first.first;
@@ -125,11 +157,12 @@ int simulate(){
             int c = vec[i].second.second;
             move(idx,d,r,c);
         }
+        //pp();
         // 각 칸에서 남은 턴 줄이는 로직
         minus_turn();
         // vec에서 사람 삭제 로직
         delete_person();
-
+        //pp();
         if(vec.size()==1){
             return t;
         }
@@ -167,21 +200,16 @@ int main() {
         }
     }
 
-    // move(1,3,1,0);
-    // move(4,2,0,4);
-    // for(int i=0;i<n;i++){
-    //     for(int j=0;j<n;j++){
-    //         cout<<arr[i][j].first<<" ";
-    //     }
-    //     cout<<"\n";
-    // }
-    // for(int i=0;i<n;i++){
-    //     for(int j=0;j<n;j++){
-    //         cout<<arr[i][j].second<<" ";
-    //     }
-    //     cout<<"\n";
-    // }
+    //print();
+
     cout<<simulate();
+    // for(int i=0;i<vec.size();i++){
+    //     int idx = vec[i].first.first;
+    //     int d = vec[i].first.second;
+    //     int r = vec[i].second.first;
+    //     int c = vec[i].second.second;
+    //     cout<<idx<<" "<<d<<" "<<r<<" "<<c<<"\n";
+    // }
     // for(int i=0;i<order.size();i++){
     //     int idx = order[i].first;
     //     int dir = order[i].second.first;
