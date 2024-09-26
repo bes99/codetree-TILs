@@ -148,7 +148,7 @@ void pp(){
     }
 }
 int simulate(){
-    for(int t=1;t<5;t++){
+    for(int t=1;t<1000;t++){
         copy();
         for(int i=0;i<vec.size();i++){
             int idx = vec[i].first.first;
