@@ -176,16 +176,16 @@ int main() {
         simulate(t,x,y);
     }
 
-    for(int i=0;i<10;i++){
-        for(int j=0;j<10;j++){
-            if(arr[i][j]){
-                cout<<" "<<1;
-            }
-            else cout<<" "<<0;
-        }
-        cout<<"\n";
-    }
+    // for(int i=0;i<10;i++){
+    //     for(int j=0;j<10;j++){
+    //         if(arr[i][j]){
+    //             cout<<" "<<1;
+    //         }
+    //         else cout<<" "<<0;
+    //     }
+    //     cout<<"\n";
+    // }
     
-    //cout<<score<<"\n"<<count_block();
+    cout<<score<<"\n"<<count_block();
     return 0;
 }
