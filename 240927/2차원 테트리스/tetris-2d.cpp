@@ -66,6 +66,7 @@ void red_block(int type, int row){
         }
 
         if(flag){
+            // score++;
             for(int tj=9;tj>4;tj--){
                 for(int i=0;i<4;i++){
                     arr[i][tj] = arr[i][tj-1];
@@ -140,6 +141,7 @@ void yellow_block(int type, int col){
         }
 
         if(flag){
+            // score++;
             for(int ti=9;ti>4;ti--){
                 for(int j=0;j<4;j++){
                     arr[ti][j] = arr[ti-1][j];
@@ -175,7 +177,14 @@ int main() {
         cin>>t>>x>>y;
         simulate(t,x,y);
     }
-
+    // simulate(1,1,1);
+    // simulate(2,1,2);
+    // simulate(3,0,1);
+    // simulate(1,3,0);
+    // simulate(3,1,3);
+    // simulate(2,2,2);
+    // simulate(1,3,2);
+    // simulate(2,3,0);
     // for(int i=0;i<10;i++){
     //     for(int j=0;j<10;j++){
     //         if(arr[i][j]){
