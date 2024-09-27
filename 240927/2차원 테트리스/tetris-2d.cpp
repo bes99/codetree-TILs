@@ -35,23 +35,25 @@ void red_block(int type, int row){
         }
     }
 
-    for(int j=9;j>=4;j--){
-        bool flag = false;
-        for(int i=0;i<4;i++){
-            if(!arr[i][j]){
-                flag = true;
-                break;
-            }
-        }
-        if(!flag){
-            score++;
-            for(int tj=j;tj>4;tj--){
-                for(int i=0;i<4;i++){
-                    arr[i][tj] = arr[i][tj-1];
+    for(int t=0;t<5;t++){
+        for(int j=9;j>=4;j--){
+            bool flag = false;
+            for(int i=0;i<4;i++){
+                if(!arr[i][j]){
+                    flag = true;
+                    break;
                 }
             }
-            for(int i=0;i<4;i++){
-                arr[i][4] = false;
+            if(!flag){
+                score++;
+                for(int tj=j;tj>4;tj--){
+                    for(int i=0;i<4;i++){
+                        arr[i][tj] = arr[i][tj-1];
+                    }
+                }
+                for(int i=0;i<4;i++){
+                    arr[i][4] = false;
+                }
             }
         }
     }
@@ -66,7 +68,6 @@ void red_block(int type, int row){
         }
 
         if(flag){
-            // score++;
             for(int tj=9;tj>4;tj--){
                 for(int i=0;i<4;i++){
                     arr[i][tj] = arr[i][tj-1];
@@ -109,24 +110,25 @@ void yellow_block(int type, int col){
             arr[r-2][col] = true;
         }
     }
-
-    for(int i=9;i>=4;i--){
-        bool flag = false;
-        for(int j=0;j<4;j++){
-            if(!arr[i][j]){
-                flag = true;
-                break;
-            }
-        }
-        if(!flag){
-            score++;
-            for(int ti=i;ti>4;ti--){
-                for(int j=0;j<4;j++){
-                    arr[ti][j] = arr[ti-1][j];
+    for(int t=0;t<5;t++){
+        for(int i=9;i>=4;i--){
+            bool flag = false;
+            for(int j=0;j<4;j++){
+                if(!arr[i][j]){
+                    flag = true;
+                    break;
                 }
             }
-            for(int j=0;j<4;j++){
-                arr[4][j] = false;
+            if(!flag){
+                score++;
+                for(int ti=i;ti>4;ti--){
+                    for(int j=0;j<4;j++){
+                        arr[ti][j] = arr[ti-1][j];
+                    }
+                }
+                for(int j=0;j<4;j++){
+                    arr[4][j] = false;
+                }
             }
         }
     }
@@ -141,7 +143,6 @@ void yellow_block(int type, int col){
         }
 
         if(flag){
-            // score++;
             for(int ti=9;ti>4;ti--){
                 for(int j=0;j<4;j++){
                     arr[ti][j] = arr[ti-1][j];
@@ -177,14 +178,7 @@ int main() {
         cin>>t>>x>>y;
         simulate(t,x,y);
     }
-    // simulate(1,1,1);
-    // simulate(2,1,2);
-    // simulate(3,0,1);
-    // simulate(1,3,0);
-    // simulate(3,1,3);
-    // simulate(2,2,2);
-    // simulate(1,3,2);
-    // simulate(2,3,0);
+
     // for(int i=0;i<10;i++){
     //     for(int j=0;j<10;j++){
     //         if(arr[i][j]){
