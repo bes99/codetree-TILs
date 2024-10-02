@@ -10,14 +10,14 @@ int dv=6;
 int row=0,col=0;
 int dice[7][4] = {
     {0,0,0,0},
-    {4,2,6,5},
-    {1,4,6,3},
-    {1,2,6,5},
-    {1,5,6,2},
-    {1,3,6,4},
+    {3,5,4,2},
+    {3,4,6,5},
+    {1,2,4,5},
+    {6,2,1,5},
+    {3,6,4,1},
     {3,2,4,5}
 };
-int n,m,d=3,ans;
+int n,m,d,ans;
 bool visited[21][21];
 int bfs(int dy, int dx){
     int cnt=1;
@@ -45,7 +45,12 @@ int bfs(int dy, int dx){
     return cnt*arr[dy][dx];
 }
 void simulate(){
-    for(int i=0;i<m;i++){
+    row += dr[d];
+    col += dc[d];
+    dv = dice[dv][d];
+    ans += bfs(row,col);
+    
+    for(int i=1;i<m;i++){
         if(dv>arr[row][col]){
             d++;
             if(d==4) d=0;
