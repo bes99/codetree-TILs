@@ -71,7 +71,7 @@ void update_died(){
 
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
-            if(arr[i][j].second.first>1 && arr[i][j].second.second>0){
+            if(arr[i][j].second.second>0){
                 arr[i][j].second.second--;
                 if(arr[i][j].second.second==0){
                     arr[i][j].second.first=0;
@@ -84,7 +84,6 @@ void egg(){
     for(int i=0;i<tp.size();i++){
         int r = get<0>(tp[i]);
         int c = get<1>(tp[i]);
-        int d = get<2>(tp[i]);
         int state = get<3>(tp[i]);
         if(state==0){
             get<3>(tp[i]) = 1;
@@ -96,7 +95,7 @@ void egg(){
 void simulate(){
     for(int i=0;i<t;i++){
         int size=tp.size();
-        max_sum=0;
+        max_sum=-1;
         for(int s=0;s<size;s++){
             int r = get<0>(tp[s]);
             int c = get<1>(tp[s]);
@@ -105,10 +104,9 @@ void simulate(){
             //cout<<r<<" "<<c<<" "<<d<<" "<<state<<"\n";
             if(state==1){
                 // 몬스터 알 낳기
-                if(arr[r][c].second.second==0){
-                    tp.push_back({r,c,d,0});
-                    arr[r][c].first.second++;
-                }
+                tp.push_back({r,c,d,0});
+                arr[r][c].first.second++;
+
                 // 몬스터 이동
                 int cnt=8;
                 while(cnt--){
