@@ -52,7 +52,7 @@ void update_died(){
         int r = pacman.first;
         int c = pacman.second;
         //cout<<r<<" "<<c<<"\n";
-        sort(tp.begin(),tp.end());
+        //sort(tp.begin(),tp.end());
         for(int j=tp.size()-1;j>=0;j--){
             int tr = get<0>(tp[j]);
             int tc = get<1>(tp[j]);
@@ -96,7 +96,7 @@ void egg(){
 void simulate(){
     for(int i=0;i<t;i++){
         int size=tp.size();
-
+        max_sum=0;
         for(int s=0;s<size;s++){
             int r = get<0>(tp[s]);
             int c = get<1>(tp[s]);
@@ -135,6 +135,7 @@ void simulate(){
         update_died();
         last.clear();
         egg();
+        //cout<<pacman.first<<" "<<pacman.second<<"\n";
     }
 }
 int print_ans(){
@@ -169,6 +170,7 @@ int main() {
 
     //     cout<<get<0>(tp[i])<<" "<<get<1>(tp[i])<<" "<<get<2>(tp[i])<<" "<<get<3>(tp[i])<<"\n";
     // }
+
     // for(int i=0;i<4;i++){
     //     for(int j=0;j<4;j++){
     //         cout<<arr[i][j].first.first<<" ";
