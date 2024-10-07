@@ -18,6 +18,13 @@ int dc[4] = {0,-1,0,1};
 vector<int> dir,last;
 vector<tuple<int,int,int,int>> tp;
 // 팩맨 이동 체크 로직
+bool compare(tuple<int,int,int,int> &a, tuple<int,int,int,int> &b){
+    if(get<0>(a) != get<0>(b))
+        return get<0>(a) < get<0>(b);
+    else{
+        return get<1>(a) < get<1>(b);
+    }
+}
 void mv(int row, int col){
     int r = row, c = col;
     int max_sum=-1;
@@ -68,7 +75,7 @@ void mv(int row, int col){
 // 펙맨 이동과 시체 업데이트
 void update_died(){
     //cout<<last.size()<<"\n";
-    sort(tp.begin(),tp.end());
+    sort(tp.begin(),tp.end(),compare);
     for(int i=0;i<last.size();i++){
         pacman.first+=dr[last[i]];
         pacman.second+=dc[last[i]];
@@ -84,7 +91,8 @@ void update_died(){
             if(tr==r && tc==c && state==1){
                 tp.erase(tp.begin()+j);
             }
-            else if(tr<r) break;
+            else if(tr==r && tc<c) break;
+            else if (tr<r && tc==c) break;
         }
         if(arr[r][c].first.first>0){
             arr[r][c].second.first += arr[r][c].first.first;
@@ -186,7 +194,7 @@ int main() {
     }
 
     simulate();
-    // sort(tp.begin(),tp.end());
+    // sort(tp.begin(),tp.end(),compare);
     // for(int i=0;i<tp.size();i++){
 
     //     cout<<get<0>(tp[i])<<" "<<get<1>(tp[i])<<" "<<get<2>(tp[i])<<" "<<get<3>(tp[i])<<"\n";
