@@ -103,24 +103,22 @@ void update_died(){
         }
     }
 }
-void egg(){
-    for(int i=0;i<tp.size();i++){
-        int r = get<0>(tp[i]);
-        int c = get<1>(tp[i]);
-        int state = get<3>(tp[i]);
-        //cout<<r<<" "<<c<<" "<<state<<"\n";
-        if(state==0){
-            get<3>(tp[i]) = 1;
-            arr[r][c].first.second--;
-            arr[r][c].first.first++;
-        }
+void egg(queue<pair<pair<int,int>,int>> q){
+    while(!q.empty()){
+        int r = q.front().first.first;
+        int c = q.front().first.second;
+        int dir = q.front().second;
+        q.pop();
+        tp.push_back({r,c,dir,1});
+        arr[r][c].first.first++;
     }
-    //cout<<"\n";
 }
 void simulate(){
     for(int i=0;i<t;i++){
+        queue<pair<pair<int,int>,int>> q;
         int size=tp.size();
         max_sum=-1;
+        //cout<<size<<"\n";
         for(int s=0;s<size;s++){
             int r = get<0>(tp[s]);
             int c = get<1>(tp[s]);
@@ -129,8 +127,7 @@ void simulate(){
             //cout<<r<<" "<<c<<" "<<d<<" "<<state<<"\n";
             if(state==1){
                 // 몬스터 알 낳기
-                tp.push_back({r,c,d,0});
-                arr[r][c].first.second++;
+                q.push({{r,c},d});
 
                 // 몬스터 이동
                 int cnt=8;
@@ -157,7 +154,7 @@ void simulate(){
         mv(pacman.first,pacman.second);
         update_died();
         last.clear();
-        egg();
+        egg(q);
         //cout<<pacman.first<<" "<<pacman.second<<"\n";
     }
 }
