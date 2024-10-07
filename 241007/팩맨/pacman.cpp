@@ -68,6 +68,7 @@ void mv(int row, int col){
 // 펙맨 이동과 시체 업데이트
 void update_died(){
     //cout<<last.size()<<"\n";
+    sort(tp.begin(),tp.end());
     for(int i=0;i<last.size();i++){
         pacman.first+=dr[last[i]];
         pacman.second+=dc[last[i]];
@@ -75,7 +76,6 @@ void update_died(){
         int r = pacman.first;
         int c = pacman.second;
         //cout<<r<<" "<<c<<"\n";
-        //sort(tp.begin(),tp.end());
         for(int j=tp.size()-1;j>=0;j--){
             int tr = get<0>(tp[j]);
             int tc = get<1>(tp[j]);
@@ -84,6 +84,7 @@ void update_died(){
             if(tr==r && tc==c && state==1){
                 tp.erase(tp.begin()+j);
             }
+            else if(tr<r) break;
         }
         if(arr[r][c].first.first>0){
             arr[r][c].second.first += arr[r][c].first.first;
