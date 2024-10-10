@@ -39,7 +39,6 @@ int bfs(int dy, int dx){
     return cnt*arr[dy][dx];
 }
 void simulate(){
-    int down = 7-u;
     for(int i=0;i<m;i++){
         int r = row + dr[d];
         int c = col + dc[d];
@@ -78,8 +77,8 @@ void simulate(){
             tie(u,f,r) = make_tuple(f,7-u,r);
         }
 
-        down = 7-u;
-        
+        int down = 7-u; 
+
         if(down>arr[row][col]){
             d++;
             if(d==4) d=0;
