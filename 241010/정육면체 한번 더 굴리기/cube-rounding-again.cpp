@@ -1,14 +1,14 @@
 #include <iostream>
 #include <queue>
-#include <utility>
 #include <tuple>
+#include <utility>
 using namespace std;
 
 int arr[21][21];
 // 우,하,좌,상
 int dr[4] = {0,1,0,-1};
 int dc[4] = {1,0,-1,0};
-int row=0,col=0;
+int y=0,x=0;
 int u=1,f=2,r=3;
 int n,m,d,ans;
 bool visited[21][21];
@@ -18,13 +18,13 @@ int bfs(int dy, int dx){
     q.push({dy,dx});
     visited[dy][dx] = true;
     while(!q.empty()){
-        int r = q.front().first;
-        int c = q.front().second;
-        sum += arr[r][c];
+        int row = q.front().first;
+        int col = q.front().second;
+        sum += arr[row][col];
         q.pop();
         for(int i=0;i<4;i++){
-            int rr = r+dr[i];
-            int cc = c+dc[i];
+            int rr = row+dr[i];
+            int cc = col+dc[i];
             if(rr<0 || rr>=n || cc<0 || cc>=n) continue;
             if(!visited[rr][cc] && arr[rr][cc]==arr[dy][dx]){
                 visited[rr][cc] = true;
@@ -39,19 +39,18 @@ int bfs(int dy, int dx){
 }
 void simulate(){
     for(int i=0;i<m;i++){
-        int rr = row + dr[d];
-        int cc = col + dc[d];
+        int rr = y + dr[d];
+        int cc = x + dc[d];
         // 격자 밖으로 나갔을 때 반대로 나가는 로직
         if(rr<0 || rr>=n || cc<0 || cc>=n){
             d = d<2 ? d+2 : d-2;
-            rr += dr[d];
-            cc += dc[d];
+            rr = y+dr[d];
+            cc = x+dc[d];
         }
 
-        row = rr;
-        col = cc;
-        ans += bfs(row,col);
-        //cout <<row<<" "<<col<<"\n";
+        y = rr;
+        x = cc;
+        ans += bfs(y,x);
         if(d==0){
             tie(u,f,r) = make_tuple(7-r,f,u);  
         }
@@ -65,12 +64,12 @@ void simulate(){
             tie(u,f,r) = make_tuple(f,7-u,r);
         }
         int down = 7-u; 
-
-        if(down>arr[row][col]){
+        // cout<<y<<" "<<x<<" "<<d<<" "<<down<<"\n";
+        if(down>arr[y][x]){
             d++;
             if(d==4) d=0;
         }
-        else if(down<arr[row][col]){
+        else if(down<arr[y][x]){
             d--;
             if(d<0) d=3; 
         }
