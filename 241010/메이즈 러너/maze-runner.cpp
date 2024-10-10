@@ -4,19 +4,7 @@
 #include <queue>
 #include <cmath>
 using namespace std;
-/*  사람이 이동 가능한 위치에서 모두 출구와의 최단거리를 계산해서 가까워지는 쪽 선택
-    2개 이상의 칸이 가능할 때에는 상하가 우선
-    동시에 움직임(맵 복사)
-    움직일 수 없으면 움직이지 않음
-    한 칸에 2명의 참가자 있을 수 있음
-    참가자가 출구 도착하면 즉시 탈출.
 
-    한명 이상의 참가자와 출구를 포함한 가장 작은 정사각형 탐색
-    (좌상단 좌표와 우하단 좌표 찾기)
-    이것이 2개 이상이면 좌상단 r좌표가 작은 것 우선, 그것도 같으면 c좌표가 작은 것 우선
-    정사각형 탐색 후 시계방향 90도 회전 후 정사각형 내부 내구도 1 감소.
-    벽 내구도 0이면 빈칸 변환
-*/
 int N,M,K,sum;
 int arr[11][11],cpy[11][11];
 int end_r, end_c;
@@ -42,7 +30,7 @@ void cand_move(){
         for(int j=0;j<4;j++){
             int rr = r+dr[j];
             int cc = c+dc[j];
-            if(rr<0 || rr>=N || cc<0 || cc>=N) continue;
+            if(rr<0 || rr>=N || cc<0 || cc>N) continue;
             if(arr[rr][cc]== 0 && dist>get_dist(rr,cc)){
                 dir = j;
                 break;
@@ -58,13 +46,12 @@ void cand_move(){
         }
     }
     while(!q.empty()){
-        int dist = q.front().first;
         int r = q.front().second.first;
         int c = q.front().second.second;
         q.pop();
         for(int i=vec.size()-1;i>=0;i--){
             if(vec[i].first.first==r && vec[i].first.second==c){
-                sum+=dist;
+                sum+=vec[i].second;
                 vec.erase(vec.begin()+i);
             }
         }
@@ -145,6 +132,7 @@ void rotate(){
             if(arr[i][j]>0) arr[i][j]--;
         }
     }
+
 }
 void simulate(){
     for(int k=0;k<K;k++){
@@ -186,32 +174,8 @@ int main() {
     }
     cin>>end_r>>end_c;
     end_r--, end_c--;
+
     simulate();
-    // test(0,0,2);
-
-    // cand_move();
-    // rotate();
-    // cand_move();
-    // rotate();
-    // cand_move();
-    // rotate();
-    // cand_move();
-    // rotate();
-    // cand_move();
-    // rotate();
-    // cand_move();
-    // rotate();
-    // cand_move();
-    // rotate();
-    // cand_move();
-    // rotate();
-    // sort(vec.begin(),vec.end(),compare);
-    // pair<int,pair<int,int>> squre = get_squre();
-    // cout<<squre.first<<" "<<squre.second.first<<" "<<squre.second.second<<"\n";
-
-    // for(auto t:vec){
-    //     cout<<t.first.first<<" "<< t.first.second<<" "<< t.second<<"\n";
-    // }
     
     cout<<sum<<"\n"<<end_r+1<<" "<<end_c+1;
     return 0;
