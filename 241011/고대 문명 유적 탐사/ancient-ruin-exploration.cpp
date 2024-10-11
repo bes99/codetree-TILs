@@ -17,9 +17,9 @@ bool compare1(pair<P,P> a, pair<P,P> b){
     if(a.first.first==b.first.first){
         if(a.first.second==b.first.second){
             if(a.second.first==b.second.first){
-                return a.second.second<b.second.second;
+                return a.second.first<b.second.first;
             }
-            else return a.second.first<b.second.first;
+            else return a.second.second<b.second.second;
         }
         else return a.first.second<b.first.second;
     }
@@ -168,7 +168,6 @@ void create_piece(){
     for(int i=0;i<del.size();i++){
         int r = del[i].first;
         int c = del[i].second;
-        if(piece.empty()) return; 
         int val = piece.front();
         piece.pop();
         arr[r][c] = val;
@@ -211,8 +210,6 @@ int main() {
     // cout<<count(1)<<"\n";
     // create_piece();
     
-
-    simulate();
     // rotate(0,0);
     // for(int i=0;i<5;i++){
     //     for(int j=0;j<5;j++){
@@ -220,5 +217,7 @@ int main() {
     //     }
     //     cout<<"\n";
     // }
+
+    simulate();
     return 0;
 }
