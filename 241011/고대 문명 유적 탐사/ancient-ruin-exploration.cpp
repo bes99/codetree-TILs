@@ -200,27 +200,7 @@ int main() {
         piece.push(input);
     }
 
-    // pick_squre();
-    // for(int i=0;i<5;i++){
-    //     for(int j=0;j<5;j++){
-    //         cout<<arr[i][j]<<" ";
-    //     }
-    //     cout<<"\n";
-    // }
-    // pick_squre();
-    // cout<<count(1)<<"\n";
-    // create_piece();
-    
-    // rotate(0,0);
-
     simulate();
-    // cout<<"\n";
-    // pick_squre();
-    // for(int i=0;i<5;i++){
-    //     for(int j=0;j<5;j++){
-    //         cout<<arr[i][j]<<" ";
-    //     }
-    //     cout<<"\n";
-    // }
+
     return 0;
 }
