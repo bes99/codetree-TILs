@@ -16,7 +16,7 @@ vector<P> del;
 bool compare1(pair<P,P> a, pair<P,P> b){
     if(a.first.first==b.first.first){
         if(a.first.second==b.first.second){
-            if(a.second.first==b.second.first){
+            if(a.second.second==b.second.second){
                 return a.second.first<b.second.first;
             }
             else return a.second.second<b.second.second;
@@ -177,6 +177,7 @@ void create_piece(){
 void simulate(){
     for(int i=0;i<K;i++){
         pick_squre();
+
         int sum=0;
         while(count(0)>0){
             sum+=count(1);
@@ -211,13 +212,15 @@ int main() {
     // create_piece();
     
     // rotate(0,0);
+
+    simulate();
+    // cout<<"\n";
+    // pick_squre();
     // for(int i=0;i<5;i++){
     //     for(int j=0;j<5;j++){
     //         cout<<arr[i][j]<<" ";
     //     }
     //     cout<<"\n";
     // }
-
-    simulate();
     return 0;
 }
