@@ -96,7 +96,7 @@ void simulate(){
     for(int i=0;i<vec.size();i++){
         bool flag = false;
         while(1){
-            if(get<0>(vec[i])==R-2) break;
+            if(get<0>(vec[i])==R-1) break;
             if(is_down(get<0>(vec[i]),get<1>(vec[i]))){
                 down(i);
             }
@@ -112,7 +112,7 @@ void simulate(){
             }
             else break;
         }
-        if(get<0>(vec[i])<2) {
+        if(get<0>(vec[i])<3) {
             clear_map();
             continue;
         }
