@@ -8,9 +8,9 @@ int dr[4]={-1,0,1,0};
 int dc[4]={0,1,0,-1};
 //  행,열,출구 방향
 vector<tuple<int,int,int>> vec;
-bool visited[73][73];
-bool checked[73][73];
-int dp[73][73];
+bool visited[74][74];
+bool checked[74][74];
+int dp[74][74];
 // 아래로 이동 가능한지 여부
 bool is_down(int row, int col){
     int dy[3] = {1,2,1};
@@ -18,7 +18,7 @@ bool is_down(int row, int col){
     for(int d=0;d<3;d++){
         int r = row + dy[d];
         int c = col + dx[d];
-        if(checked[r][c] || r<0 || r>=R || c<0 || c>=C){
+        if(checked[r][c] || r<1 || r>R || c<1 || c>C){
             return false;
         }
     }
@@ -34,7 +34,7 @@ bool is_left(int row, int col){
     for(int d=0;d<5;d++){
         int r = row + dy[d];
         int c = col + dx[d];
-        if(checked[r][c]  || r<0 || r>=R || c<0 || c>=C){
+        if(checked[r][c]  || r<1 || r>R || c<1 || c>C){
             return false;
         }
     }
@@ -50,7 +50,7 @@ bool is_right(int row, int col){
     for(int d=0;d<5;d++){
         int r = row + dy[d];
         int c = col + dx[d];
-        if(checked[r][c]  || r<0 || r>=R || c<0 || c>=C){
+        if(checked[r][c]  || r<1 || r>R || c<1 || c>C){
             return false;
         }
     }
@@ -71,8 +71,8 @@ void lacate(int idx, int max_row){
     }
 }
 void clear_map(){
-    for(int i=0;i<R;i++){
-        for(int j=0;j<C;j++){
+    for(int i=1;i<=R;i++){
+        for(int j=1;j<=C;j++){
             dp[i][j] = 0;
             checked[i][j] = false;
         }
@@ -80,16 +80,14 @@ void clear_map(){
 }
 int bfs(int row, int col, int mr){
     int max_row = mr;
-    bool flag = false;
     for(int i=0;i<4;i++){
         int r = row+dr[i];
         int c = col+dc[i];
-        if(checked[r][c]){
-            flag =true;
+        if(dp[r][c]>0){
             max_row = max(max_row, dp[r][c]);
         }
     }
-    if(flag) return max_row;
+    return max_row;
 }
 
 void simulate(){
@@ -117,7 +115,7 @@ void simulate(){
             continue;
         }
         int d = get<2>(vec[i]);
-        int max_row = bfs(get<0>(vec[i])+dr[d], get<1>(vec[i])+dc[d], get<0>(vec[i]));
+        int max_row = bfs(get<0>(vec[i])+dr[d], get<1>(vec[i])+dc[d], get<0>(vec[i])-1);
         lacate(i,max_row);
         dp[get<0>(vec[i])][get<1>(vec[i])] = max_row;
 
@@ -130,10 +128,15 @@ int main() {
     R+=2;
     for(int i=0;i<K;i++){
         cin>>a>>b;
-        a--;
-        vec.push_back({0,a,b});
+        vec.push_back({1,a,b});
     }
     simulate();
+    // for(int i=1;i<=R;i++){
+    //     for(int j=1;j<=C;j++){
+    //         cout<<dp[i][j]<<" ";
+    //     }
+    //     cout<<"\n";
+    // }
     // for(auto v:vec){
     //     int r = get<0>(v);
     //     int c = get<1>(v);
