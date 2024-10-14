@@ -90,30 +90,6 @@ int bfs(int row, int col, int mr){
         }
     }
     if(flag) return max_row;
-
-    // for(int i=0;i<R;i++){
-    //     fill(visited[i],visited[i]+C,false);
-    // }
-    // queue<pair<int,int>> q;
-    // q.push({row,col});
-    // visited[row][col] = true;
-    // checked[row][col] = true;
-    // while(!q.empty()){
-    //     int r = q.front().first;
-    //     int c = q.front().second;
-    //     q.pop();
-    //     max_row = max(max_row,r);
-    //     for(int i=0;i<4;i++){
-    //         int rr = r+dr[i];
-    //         int cc = c+dc[i];
-    //         if(!visited[rr][cc] && !checked[rr][cc]){
-    //             q.push({rr,cc});
-    //             visited[rr][cc] = true;
-    //             checked[rr][cc] = true;
-    //         }
-    //     }
-    // }
-    // return max_row;
 }
 
 void simulate(){
@@ -136,7 +112,7 @@ void simulate(){
             }
             else break;
         }
-        if(get<0>(vec[i])<3) {
+        if(get<0>(vec[i])<2) {
             clear_map();
             continue;
         }
