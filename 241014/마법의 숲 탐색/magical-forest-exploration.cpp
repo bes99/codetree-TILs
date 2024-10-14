@@ -101,7 +101,7 @@ int bfs(int row, int col){
 }
 
 void simulate(){
-    for(int i=0;i<6;i++){
+    for(int i=0;i<vec.size();i++){
         bool flag = false;
         while(1){
             if(get<0>(vec[i])==R-2) break;
