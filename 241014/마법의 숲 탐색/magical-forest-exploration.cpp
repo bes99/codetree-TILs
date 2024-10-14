@@ -110,7 +110,7 @@ void simulate(){
             }
             else break;
         }
-        if(get<0>(vec[i])<4) {
+        if(get<0>(vec[i])<=4) {
             clear_map();
             continue;
         }
