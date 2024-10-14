@@ -91,7 +91,7 @@ int bfs(int row, int col, int mr){
 }
 
 void simulate(){
-    for(int i=0;i<vec.size();i++){
+    for(int i=0;i<6;i++){
         bool flag = false;
         while(1){
             if(get<0>(vec[i])==R-1) break;
@@ -115,7 +115,7 @@ void simulate(){
             continue;
         }
         int d = get<2>(vec[i]);
-        int max_row = bfs(get<0>(vec[i])+dr[d], get<1>(vec[i])+dc[d], get<0>(vec[i])-1);
+        int max_row = bfs(get<0>(vec[i])+dr[d], get<1>(vec[i])+dc[d], get<0>(vec[i])-2);
         lacate(i,max_row);
         dp[get<0>(vec[i])][get<1>(vec[i])] = max_row;
 
@@ -125,7 +125,7 @@ void simulate(){
 int main() {
     int a,b;
     cin>>R>>C>>K;
-    R+=2;
+    R+=3;
     for(int i=0;i<K;i++){
         cin>>a>>b;
         vec.push_back({1,a,b});
